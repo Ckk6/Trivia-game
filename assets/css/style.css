@@ -1,12 +1,12 @@
 .o-size
 	{
 		height: 600px;
-		width: 1300px;
+		width: 1400px;
 	}
 
 .o-bg-image
 {
-	background-image: url("../images/kirkscreen.jpg") ;
+	background-image: url("../images/screenbackground.jpg") ;
 	background-repeat: no-repeat;
 	background-position: center center;
 	background-attachment: fixed;
@@ -16,40 +16,46 @@
 
 .o-content-box
 {
-	height: 30%;
-	width: 47%;
-	/*background-image: url("../images/hyades.jpg");
+	height: 81%;
+	width: 69%;
+	background-image: url("../images/hyades.jpg");
 	/*background: #b4bdaf;*/
 	opacity: 1;
-	margin-left: 30% ;
-	margin-top: 5%;
+	margin-left: 15%;
+	margin-top: 0%;
+	border: solid 5px #68d0f2;
 	
 }                       		
 
 .o-center
 {
 	/**margin-top: 50px;*/
-	margin-left: 180px;
-	font-size: 20px;
+	margin-left: 200px;
+	/*font-size: 20px;*/
 	font-weight: bolder;
-	width: 220px;
+	width: 400px;
 }
 
-#o-time-remaining
+#o-time-remaining	
 {
-	margin-left: 200px;
-	
+	margin-left: 275px;
 }
 
 #start-button
 {
+	width:300px;
+	margin-top:100px;
+	margin-left: 300px;
+	background: red;
+	font-size: 26px;
 
 }	
 
 #question
 {
-
-}	
+	font-weight: bold;
+	font-size:22px;
+	margin-left: 100px;
 
 #answer1
 {
@@ -71,4 +77,47 @@
 {
 	display: block;
 	margin:10px;
+}
+
+#answer-message
+{
+
+}
+
+
+#right-answer
+{
+
+}
+
+
+#picture
+{
+
+}
+
+#correct
+{
+
+}
+
+#incorrect
+{
+
+}
+
+#unanswered
+{
+
+}
+
+
+
+.start-over-button
+{
+	width:300px;
+	margin-top:100px;
+	margin-left: 300px;
+	background: red;
+	font-size: 26px;
 }
