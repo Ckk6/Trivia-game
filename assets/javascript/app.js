@@ -7,7 +7,10 @@ $(document).ready(function() {
 	var right = false;
 	var i = 0;
 	var countdown = 0;
-	var answer 
+	var answer ;
+	var timeup = false;
+	var one = 1;
+	var zero = 0;
 
 	//define object with questions and answers
 
@@ -43,7 +46,7 @@ $(document).ready(function() {
 					rightAnswer: ['answer1','Lewis Carroll']},
 
 
-					{question:"The original Star Trek took place over how many years?",
+					{question: "The original Star Trek took place over how many years?",
 					answer1:"1",
 					answer2:"5",
 					answer3:"3",
@@ -56,7 +59,7 @@ $(document).ready(function() {
 					answer2:"Doc",
 					answer3:"Jay",
 					answer4:"Bones",
-					rightAnswer: ['answer4', 'Bones']},
+					rightAnswer: ['answer4','Bones']},
 
 
 					{question:"Which state is the birthplace of James T. Kirk?",
@@ -84,20 +87,25 @@ $(document).ready(function() {
 				]							
 
 	console.log(quiz[i].question);
+	console.log(quiz[i].rightAnswer[0]);
+	console.log(quiz[i].rightAnswer[1]);
 	//define popsum
 	function popSum() {
 		console.log('I am in the popsum function.');
 		emptyQuest();
-		$('#correct').text("Correct: " + correct) ;
+		console.log('I am back in popsum');
+	
+		$('#correct').text(correct);
+		console.log('correct');
 		$('#incorrect').text("Incorrect: " + incorrect);
 		$('#unanswered').text("Unanswered: " + unanswered);
 
 		//create start over button
 
 		startOver = $('<button>').text('start over');
-		startOver.attr('class', 'start-over-button');
+		startOver.attr('class', 'start-over');
 
-		$('#start-over-button').append(startOver);
+		//$('#start-over-button'). append('<br><button class="btn btn-primary active start-over-button">Start Over</button><br>');
 	}
 
 	
@@ -106,7 +114,7 @@ $(document).ready(function() {
 	//define popques function
 	 function popQuest() {
 	 	right = false;
-	 	timeRemaining = 20;
+	 	timeRemaining = 30;
 	 	console.log("i am in the popquest function");
 		if (counter < 4) {
 			//populate question and answers on screen
@@ -115,16 +123,22 @@ $(document).ready(function() {
 			
 			ans1 = $('<button>').text(quiz[i].answer1);
 			ans1.attr('class', 'answer1');
+			ans1.attr('font-size', '22px');
+
 
 			
-			ans2 =$('<button>').text(quiz[i].answer2);
+			ans2 = $('<button>').text(quiz[i].answer2);
 			ans2.attr('class', 'answer2');
+			ans2.attr('font-size', '22px');
 
-			ans3 =$('<button>').text(quiz[i].answer3);
+
+			ans3 = $('<button>').text(quiz[i].answer3);
 			ans3.attr('class', 'answer3');
+			ans3.attr('font-size', '22px');
 
-			ans4 =$('<button>').text(quiz[i].answer4);
+			ans4 = $('<button>').text(quiz[i].answer4);
 			ans4.attr('class', 'answer4');
+			ans4.attr('font-size', '22px');
 
 			
 			$('#answer1').append(ans1);
@@ -133,8 +147,7 @@ $(document).ready(function() {
 			$('#answer4').append(ans4);
 
 
-			i++;
-			counter++;
+			
 			console.log(counter)
 			console.log(i);
 			timer();                                                          
@@ -152,22 +165,28 @@ $(document).ready(function() {
             timeRemaining--;
             $('#o-time-remaining').text('Time Remaining: ' + timeRemaining);
              if (timeRemaining == 0){
-                clearInterval(countdown); 
+                clearInterval(countdown);
+                timeup = true;
                 emptyQuest();
                 unanswered++;
-                $('#answer-message').text("You're out of time!!");
-				$('#right-answer').text(quiz[i].rightAnswer[1]);
+                console.log("unanswered "+ unanswered);
+                $("#answer-message").text("You're out of time!!");
+				$("#right-answer").text(quiz[i].rightAnswer[1]);
+				i++;
+				counter++;
 				//trigger next question after delay
-				answerpause = setTimeout(popQuest, 40000);
+				console.log('i am now pausing for next question');
+				answerpause = setTimeout(emptyAns, 5000);
 
-               
+            
              }
-
+ 
 	}
 
 	//timer function
 		 function timer() {
 		 	countdown = setInterval(decrement, 1000);
+
 		 			}
 
 
@@ -180,13 +199,20 @@ $(document).ready(function() {
 		$('#answer2').empty();
 		$('#answer3').empty();
 		$('#answer4').empty();
+		console.log('i am leaving emptyQuest');
 
+		}
+
+		function emptyAns() {
+		$('#answer-message').empty();
+		$('#right-answer').empty();
+		popQuest();
 		}
 
 
 
 	 function endQuest(){
-	 	console.log('i am in endQuest')
+	 	console.log('i am in endQuest');
 	 	//stop timer
 	 	stop = timeRemaining;
 		clearInterval(countdown);
@@ -198,7 +224,7 @@ $(document).ready(function() {
 		//build answer page
 
 		//determine if answer is right or wrong
-		if (right = true) {
+		if (right == true) {
 			correct++;
 			//print you are right msg
 			$('answer-message').text("You are absolutely correct!!");
@@ -212,10 +238,11 @@ $(document).ready(function() {
 			
 		}
 		//print quiz[i].picture
-
+		i++;
+		counter++;
 
 		//set time delay for popQues function
-		answerpause = setTimeout(popQuest, 40000);
+		answerpause = setTimeout(emptyAns, 5000);
 	}
 
 		
@@ -233,28 +260,28 @@ $(document).ready(function() {
 
 	//define onclick functions for answers
 			
-	$(".answer1").on("click", function() {
+	$('ans1').on('click', function() {
 		console.log(' answer1 was clicked');
-		if (quiz[i].rightAnswer[0] == answer1) {
+		if (quiz[i].rightAnswer[0] == 'answer1') {
 			right = true
 			endQuest();
 		} 
 
 		});
 
-	$(".answer2").on("click", function() {
+	$("ans2").on("click", function() {
 		if (quiz[i].rightAnswer[0] == 'answer2') {
 			right = true
 			endQuest();
 		}
 	});
-	$(".answer3").on("click", function() {
+	$("ans3").on("click", function() {
 		if (quiz[i].rightAnswer[0] == 'answer3') {
 			right = true
 			endQuest();
 		}
 	});
-	$(".answer4").on("click", function() {
+	$("ans4").on("click", function() {
 		if (quiz[i].rightAnswer[0] == 'answer4') {
 			right = true
 			endQuest();
@@ -264,7 +291,7 @@ $(document).ready(function() {
 
 	//create onclick function for start over button
 
-	$('#start-over-button').on('click', function() {
+	$('#start-over-button').on('click', function(event) {
 
 		//remove startbutton
 		document.getElementsByClassname('start-over-button').style.display="none";
