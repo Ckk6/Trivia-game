@@ -142,3 +142,8 @@ font-size:22px;
 	background: red;
 	font-size: 26px;
 }
+
+.none
+{
+	display: none;
+}

@@ -9,8 +9,7 @@ $(document).ready(function() {
 	var countdown = 0;
 	var answer ;
 	var timeup = false;
-	var one = 1;
-	var zero = 0;
+	
 
 	//define object with questions and answers
 
@@ -89,23 +88,52 @@ $(document).ready(function() {
 	console.log(quiz[i].question);
 	console.log(quiz[i].rightAnswer[0]);
 	console.log(quiz[i].rightAnswer[1]);
+
 	//define popsum
 	function popSum() {
 		console.log('I am in the popsum function.');
 		emptyQuest();
 		console.log('I am back in popsum');
 	
-		$('#correct').text(correct);
-		console.log('correct');
+		$('#correct').text('Correct: ' + correct);
+		console.log('Correct: ' + correct);
 		$('#incorrect').text("Incorrect: " + incorrect);
 		$('#unanswered').text("Unanswered: " + unanswered);
 
 		//create start over button
-
+		
 		startOver = $('<button>').text('start over');
 		startOver.attr('class', 'start-over');
 
-		//$('#start-over-button'). append('<br><button class="btn btn-primary active start-over-button">Start Over</button><br>');
+		//append start over button
+		$('#start-over-button').append(startOver);
+
+		//create onclick function for start over button
+
+	$('#start-over-button').on('click', function(event) {
+
+		//remove startbutton
+		$('#start').empty();
+		//empty summary
+		$('#correct').empty();
+		$('#incorrect').empty();
+		$('#unanswered').empty();
+		
+		//reset
+		counter = 0;
+		correct = 0;
+		incorrect = 0;
+		unanswered = 0;
+		timeRemaining = 0;
+		right = false;
+		if (i > 4){
+			i = 0
+
+		}
+
+
+		popQuest();
+	});
 	}
 
 	
@@ -148,6 +176,47 @@ $(document).ready(function() {
 
 
 			
+
+
+
+				//define onclick functions for answers
+						
+				$('.answer1').on('click', function() {
+					console.log(' answer1 was clicked',i);
+					console.log(quiz[i].rightAnswer[0]);
+					if (quiz[i].rightAnswer[0] == 'answer1') {
+						right = true
+						console.log()
+						
+					} 
+					endQuest();
+
+					});
+
+				$(".answer2").on("click", function() {
+					if (quiz[i].rightAnswer[0] == 'answer2') {
+						right = true
+						
+					}
+					endQuest();
+				});
+				$(".answer3").on("click", function() {
+					if (quiz[i].rightAnswer[0] == 'answer3') {
+						right = true
+						
+					}
+					endQuest();
+				});
+				$(".answer4").on("click", function() {
+					if (quiz[i].rightAnswer[0] == 'answer4') {
+						right = true
+						
+					}
+					endQuest();
+				});
+
+
+
 			console.log(counter)
 			console.log(i);
 			timer();                                                          
@@ -227,14 +296,14 @@ $(document).ready(function() {
 		if (right == true) {
 			correct++;
 			//print you are right msg
-			$('answer-message').text("You are absolutely correct!!");
+			$('#answer-message').text("You are absolutely correct!!");
 			
 		} else {
 			incorrect++;
 			//print incorrect msg wrong and correct answer
-			$('answer-message').text("No, that's not it!!");
+			$('#answer-message').text("No, that's not it!!");
 			//quiz[i].rightAnswer
-			$('right-answer').text(quiz[i].rightAnswer[1]);
+			$('#right-answer').text(quiz[i].rightAnswer[1]);
 			
 		}
 		//print quiz[i].picture
@@ -251,68 +320,12 @@ $(document).ready(function() {
 	$('#start-button').on('click', function() {
 		console.log("start button clicked");
 		//remove startbutton
-		document.getElementById('start-button').style.display="none";
+		$('#start-button').remove();
 		//move questions and answers to page
 		 popQuest();
 		 
 	});
 
 
-	//define onclick functions for answers
-			
-	$('ans1').on('click', function() {
-		console.log(' answer1 was clicked');
-		if (quiz[i].rightAnswer[0] == 'answer1') {
-			right = true
-			endQuest();
-		} 
-
-		});
-
-	$("ans2").on("click", function() {
-		if (quiz[i].rightAnswer[0] == 'answer2') {
-			right = true
-			endQuest();
-		}
-	});
-	$("ans3").on("click", function() {
-		if (quiz[i].rightAnswer[0] == 'answer3') {
-			right = true
-			endQuest();
-		}
-	});
-	$("ans4").on("click", function() {
-		if (quiz[i].rightAnswer[0] == 'answer4') {
-			right = true
-			endQuest();
-		}
-	});
-
-
-	//create onclick function for start over button
-
-	$('#start-over-button').on('click', function(event) {
-
-		//remove startbutton
-		document.getElementsByClassname('start-over-button').style.display="none";
-		//empty summary
-		$('#correct').empty();
-		$('#incorrect').empty();
-		$('#unanswered').empty();
-		
-		//reset
-		counter = 0;
-		correct = 0;
-		incorrect = 0;
-		unanswered = 0;
-		timeRemaining = 0;
-		right = false;
-		if (i > 4){
-			i = 0
-
-		}
-
-
-		popQuest();
-	});
+	
 });
